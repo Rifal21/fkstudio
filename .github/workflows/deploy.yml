@@ -21,10 +21,12 @@ jobs:
 
       - name: Setup SSH
         run: |
-          mkdir -p ~/.ssh
-          printf "%s\n" "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H ssh.fkstudio.my.id >> ~/.ssh/known_hosts
+              mkdir -p ~/.ssh
+              cat > ~/.ssh/id_ed25519 << 'EOF'
+              ${{ secrets.DEPLOY_KEY }}
+              EOF
+              chmod 600 ~/.ssh/id_ed25519
+              ssh-keyscan -H ssh.fkstudio.my.id >> ~/.ssh/known_hosts
 
       - name: Test SSH via Cloudflare
         run: |
