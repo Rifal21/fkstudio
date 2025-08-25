@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: Deploy Laravel to Server
 
 on:
   push:
@@ -6,183 +6,27 @@ on:
       - main
 
 jobs:
-  deploy-vps:
+  deploy:
     runs-on: ubuntu-latest
-    if: ${{ !failure() && !cancelled() }}  # Hanya run jika tidak ada failure sebelumnya
-    environment: production
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup SSH for VPS
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SERVER_HOST: ${{ secrets.VPS_HOST }}
-          SERVER_USER: ${{ secrets.VPS_USER }}
-          SERVER_PATH: ${{ secrets.VPS_PATH }}
-        run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          
-          # Write SSH private key (remove potential extra spaces)
-          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          
-          # Save server details
-          echo "$SERVER_HOST" > ~/.server_host
-          echo "$SERVER_USER" > ~/.server_user
-          echo "$SERVER_PATH" > ~/.server_path
-          
-          # Add to known_hosts
-          ssh-keyscan -H "$SERVER_HOST" >> ~/.ssh/known_hosts 2>/dev/null
-
-      - name: Test SSH connection to VPS
-        run: |
-          HOST=$(cat ~/.server_host)
-          USER=$(cat ~/.server_user)
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -o ConnectTimeout=10 $USER@$HOST "
-            echo 'SSH connection successful to $HOST'
-            echo 'Current directory: $(pwd)'
-          "
-
-      - name: Check deployment path on VPS
-        run: |
-          HOST=$(cat ~/.server_host)
-          USER=$(cat ~/.server_user)
-          DEPLOY_PATH=$(cat ~/.server_path)
-          
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no $USER@$HOST "
-            if [ -d '$DEPLOY_PATH' ]; then
-              echo 'Directory $DEPLOY_PATH exists'
-              ls -la '$DEPLOY_PATH'
-            else
-              echo 'ERROR: Directory $DEPLOY_PATH does not exist'
-              exit 1
-            fi
-          "
-
-      - name: Deploy to VPS
-        run: |
-          HOST=$(cat ~/.server_host)
-          USER=$(cat ~/.server_user)
-          DEPLOY_PATH=$(cat ~/.server_path)
-
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no $USER@$HOST "
-            set -e
-            echo 'Deploying to VPS ($HOST)...'
-            
-            cd '$DEPLOY_PATH' || { echo 'ERROR: Cannot cd to $DEPLOY_PATH'; exit 1; }
-            
-            # Check if git repository exists
-            if [ ! -d .git ]; then
-              echo 'ERROR: Not a git repository'
-              exit 1
-            fi
-            
-            git fetch origin 2>&1
-            git reset --hard origin/main 2>&1
-            
-            # Run deployment commands
-            composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev 2>&1
-            php artisan migrate --force 2>&1
-            php artisan optimize:clear 2>&1
-            
-            echo 'VPS deployment completed successfully'
-          "
-
-      - name: Cleanup VPS
-        run: |
-          rm -f ~/.ssh/id_rsa
-          rm -f ~/.server_host ~/.server_user ~/.server_path
-
-  deploy-homeserver:
-    runs-on: ubuntu-latest
-    environment: production
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Install Cloudflared
-        run: |
-          wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
-          sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
-          sudo chmod +x /usr/local/bin/cloudflared
-          cloudflared --version
 
       - name: Setup SSH
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY_HOMESERVER }}
         run: |
           mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          
-          # Save private key
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H fkstudio.my.id >> ~/.ssh/known_hosts
 
-      - name: Test Cloudflared Connection
-        env:
-          SERVER_HOST: ${{ secrets.HOMESERVER_HOST }}
+      - name: Deploy to Server
         run: |
-          echo "Testing Cloudflared connection to $SERVER_HOST"
-          timeout 15s cloudflared access ssh --hostname $SERVER_HOST || \
-          echo "Cloudflared test completed (timeout expected)"
-
-      - name: Create SSH Configuration
-        env:
-          SERVER_HOST: ${{ secrets.HOMESERVER_HOST }}
-          SERVER_USER: ${{ secrets.HOMESERVER_USER }}
-        run: |
-          cat > ~/.ssh/config << EOF
-          Host homeserver
-            HostName $SERVER_HOST
-            User $SERVER_USER
-            IdentityFile ~/.ssh/id_rsa
-            ProxyCommand cloudflared access ssh --hostname %h
-            StrictHostKeyChecking no
-            ConnectTimeout 30
-            ServerAliveInterval 15
-            ServerAliveCountMax 3
-          EOF
-
-      - name: Test SSH Connection
-        run: |
-          echo "Testing SSH connection via Cloudflare Tunnel..."
-          timeout 30s ssh -v -F ~/.ssh/config homeserver "echo 'Connection successful'; pwd" || \
-          { echo "SSH test completed"; exit 0; }
-
-      - name: Deploy to server via Cloudflare SSH
-        env:
-          SERVER_PATH: ${{ secrets.HOMESERVER_PATH }}
-        run: |
-          DEPLOY_PATH=$SERVER_PATH
-
-          ssh -F ~/.ssh/config homeserver "
-            set -e
-            echo 'Deploying to server via Cloudflare Tunnel...'
-            
-            cd '$DEPLOY_PATH' || { echo 'ERROR: Cannot cd to $DEPLOY_PATH'; exit 1; }
-            
-            # Check if git repository exists
-            if [ ! -d .git ]; then
-              echo 'ERROR: Not a git repository'
-              exit 1
-            fi
-            
-
-            git fetch origin
-            git reset --hard origin/main
-
-            composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
-            php artisan migrate --force
-            php artisan optimize:clear
-
-            
-            echo 'Deployment via Cloudflare Tunnel completed successfully'
+          ssh -i ~/.ssh/id_ed25519 webserver@fkstudio.my.id "\
+            whoami && \
+            cd /var/www/fkstudio && \
+            git pull origin main && \
+            composer install --no-interaction --prefer-dist --optimize-autoloader && \
+            php artisan migrate --force && \
+            php artisan optimize:clear && \
           "
-      - name: Cleanup
-        run: |
-          rm -rf ~/.ssh/id_rsa ~/.ssh/config ~/.ssh/known_hosts
