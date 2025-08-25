@@ -25,6 +25,7 @@ jobs:
           ssh -i ~/.ssh/id_ed25519 webserver@fkstudio.my.id "\
             whoami && \
             cd /var/www/fkstudio && \
+            git fetch && \
             git pull origin main && \
             composer install --no-interaction --prefer-dist --optimize-autoloader && \
             php artisan migrate --force && \
