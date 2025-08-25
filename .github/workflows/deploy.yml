@@ -15,15 +15,15 @@ jobs:
 
       - name: Setup SSH
         run: |
+          mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" | tr -d '\r' > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H fkstudio.my.id >> ~/.ssh/known_hosts
-          # Juga tambahkan hostname alternatif jika diperlukan
+          # ssh-keyscan -H fkstudio.my.id >> ~/.ssh/known_hosts
           ssh-keyscan -H ssh.fkstudio.my.id >> ~/.ssh/known_hosts
 
       - name: Test SSH Connection
         run: |
-          ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes -o StrictHostKeyChecking=no webserver@fkstudio.my.id whoami
+          ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes -o StrictHostKeyChecking=no webserver@ssh.fkstudio.my.id whoami
 
       - name: Deploy to Server
         run: |
