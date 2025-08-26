@@ -13,6 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Debug key
+        run: |
+          ls -la ~/.ssh
+          head -5 ~/.ssh/deploy_key
+          ssh -vvv -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no webserver@ssh.fkstudio.my.id whoami
+
+
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
