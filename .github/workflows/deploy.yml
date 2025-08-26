@@ -13,47 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Check DEPLOY_KEY exists
-        run: |
-          if [ -z "${{ secrets.DEPLOY_KEY }}" ]; then
-            echo "❌ DEPLOY_KEY secret is empty!"
-            exit 1
-          else
-            echo "✅ DEPLOY_KEY secret is set."
-          fi
-
-
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          printf "%s" "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ssh.fkstudio.my.id >> ~/.ssh/known_hosts
+          # Disable strict host checking
+          echo "Host *" > ~/.ssh/config
+          echo "  StrictHostKeyChecking no" >> ~/.ssh/config
 
-      - name: Debug key
+      - name: Deploy to Server
         run: |
-          ls -la ~/.ssh
-          head -5 ~/.ssh/id_rsa || true
-          ssh -vvv -i ~/.ssh/id_rsa \
-              -o StrictHostKeyChecking=no \
-              webserver@ssh.fkstudio.my.id whoami
-
-      - name: Test SSH
-        run: |
-          ssh -i ~/.ssh/id_rsa \
-              -o StrictHostKeyChecking=no \
-              webserver@ssh.fkstudio.my.id whoami
-
-      - name: Deploy Laravel
-        run: |
-          ssh -i ~/.ssh/id_rsa \
-              -o StrictHostKeyChecking=no \
-              webserver@ssh.fkstudio.my.id << 'EOF'
-                set -e
-                cd /var/www/fkstudio
-                git fetch origin main
-                git reset --hard origin/main
-                composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
-                php artisan migrate --force
-                php artisan optimize:clear
-          EOF
+          ssh -i ~/.ssh/id_rsa webserver@ssh.fkstudio.my.id "cd /var/www/fkstudio && git pull origin main && composer install --no-interaction --prefer-dist --optimize-autoloader && php artisan migrate --force && php artisan config:clear && php artisan route:clear"
