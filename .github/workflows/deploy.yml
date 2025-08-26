@@ -26,27 +26,27 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          printf "%s" "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
+          printf "%s" "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ssh.fkstudio.my.id >> ~/.ssh/known_hosts
 
       - name: Debug key
         run: |
           ls -la ~/.ssh
-          head -5 ~/.ssh/deploy_key || true
-          ssh -vvv -i ~/.ssh/deploy_key \
+          head -5 ~/.ssh/id_rsa || true
+          ssh -vvv -i ~/.ssh/id_rsa \
               -o StrictHostKeyChecking=no \
               webserver@ssh.fkstudio.my.id whoami
 
       - name: Test SSH
         run: |
-          ssh -i ~/.ssh/deploy_key \
+          ssh -i ~/.ssh/id_rsa \
               -o StrictHostKeyChecking=no \
               webserver@ssh.fkstudio.my.id whoami
 
       - name: Deploy Laravel
         run: |
-          ssh -i ~/.ssh/deploy_key \
+          ssh -i ~/.ssh/id_rsa \
               -o StrictHostKeyChecking=no \
               webserver@ssh.fkstudio.my.id << 'EOF'
                 set -e
