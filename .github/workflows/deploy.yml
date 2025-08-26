@@ -28,6 +28,8 @@ jobs:
               ProxyCommand cloudflared access ssh --hostname %h
               ServerAliveInterval 30
               IdentitiesOnly yes
+              StrictHostKeyChecking no
+              UserKnownHostsFile=/dev/null
           EOL
 
       - name: Install cloudflared
