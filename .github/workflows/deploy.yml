@@ -40,7 +40,7 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          ssh fkstudio-vm "cd /var/www/fkstudio && \
+          ssh fkstudio-vm "git config --global --add safe.directory /var/www/fkstudio && \ cd /var/www/fkstudio && \
             git fetch origin main && \
             git pull origin main && \
             composer install --no-interaction --prefer-dist --optimize-autoloader && \
