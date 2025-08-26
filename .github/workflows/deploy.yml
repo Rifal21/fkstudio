@@ -15,8 +15,10 @@ jobs:
         
       - name: Setup SSH
         run: |
-              mkdir -p ~/.ssh
-              cat > ~/.ssh/id_ed25519 <<EOF${{ secrets.DEPLOY_KEY }}EOF
+          mkdir -p ~/.ssh
+          cat > ~/.ssh/id_ed25519 << 'EOF'
+          ${{ secrets.DEPLOY_KEY }}
+          EOF
               chmod 600 ~/.ssh/id_ed25519
               ssh-keyscan -H ssh.fkstudio.my.id >> ~/.ssh/known_hosts
 
