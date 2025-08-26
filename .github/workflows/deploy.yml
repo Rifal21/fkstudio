@@ -32,6 +32,7 @@ jobs:
               -o StrictHostKeyChecking=no \
               webserver@ssh.fkstudio.my.id << 'EOF'
                 set -e
+                whoami
                 cd /var/www/fkstudio
                 git fetch origin main
                 git reset --hard origin/main
