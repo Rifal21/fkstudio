@@ -13,6 +13,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Check DEPLOY_KEY exists
+        run: |
+          if [ -z "${{ secrets.DEPLOY_KEY }}" ]; then
+            echo "❌ DEPLOY_KEY secret is empty!"
+            exit 1
+          else
+            echo "✅ DEPLOY_KEY secret is set."
+          fi
+
+
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
@@ -20,9 +30,17 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ssh.fkstudio.my.id >> ~/.ssh/known_hosts
 
-      - name: Debug SSH
+      - name: Debug key
         run: |
+          ls -la ~/.ssh
+          head -5 ~/.ssh/deploy_key || true
           ssh -vvv -i ~/.ssh/deploy_key \
+              -o StrictHostKeyChecking=no \
+              webserver@ssh.fkstudio.my.id whoami
+
+      - name: Test SSH
+        run: |
+          ssh -i ~/.ssh/deploy_key \
               -o StrictHostKeyChecking=no \
               webserver@ssh.fkstudio.my.id whoami
 
