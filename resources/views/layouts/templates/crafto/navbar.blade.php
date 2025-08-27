@@ -4,13 +4,13 @@
         data-header-hover="light">
         <div class="container-fluid">
             <div class="col-auto col-xxl-3 col-lg-2 me-lg-0 me-auto">
-                <a class="navbar-brand" href="demo-it-business.html">
-                    <img src="images/demo-it-business-logo-white.png"
-                        data-at2x="images/demo-it-business-logo-white@2x.png" alt="" class="default-logo">
-                    <img src="images/demo-it-business-logo-black.png"
-                        data-at2x="images/demo-it-business-logo-black@2x.png" alt="" class="alt-logo">
-                    <img src="images/demo-it-business-logo-black.png"
-                        data-at2x="images/demo-it-business-logo-black@2x.png" alt="" class="mobile-logo">
+                <a class="navbar-brand" href="/">
+                    <img src="{{ cockpitImage($config['favicon']) }}" data-at2x="{{ cockpitImage($config['favicon']) }}"
+                        alt="" class="default-logo" style="height: 60px; width: auto;">
+                    <img src="{{ cockpitImage($config['favicon']) }}" data-at2x="{{ cockpitImage($config['favicon']) }}"
+                        alt="" class="alt-logo" style="height: 60px; width: auto;">
+                    <img src="{{ cockpitImage($config['favicon']) }}" data-at2x="{{ cockpitImage($config['favicon']) }}"
+                        alt="" class="mobile-logo" style="height: 60px; width: auto;">
                 </a>
             </div>
             <div class="col-auto col-xxl-6 col-lg-8 menu-order position-static">
@@ -23,41 +23,80 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a href="demo-it-business.html" class="nav-link">Home</a></li>
-                        <li class="nav-item"><a href="demo-it-business-about.html" class="nav-link">About</a></li>
-                        <li class="nav-item dropdown dropdown-with-icon-style02">
-                            <a href="demo-it-business-services.html" class="nav-link">Services</a>
-                            <i class="fa-solid fa-angle-down dropdown-toggle" id="navbarDropdownMenuLink" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false"></i>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a href="demo-it-business-services-details.html"><i class="bi bi-briefcase"></i>Data
-                                        analytics</a></li>
-                                <li><a href="demo-it-business-services-details.html"><i
-                                            class="bi bi-clipboard-data"></i>Finance consulting</a></li>
-                                <li><a href="demo-it-business-services-details.html"><i
-                                            class="bi bi-peace"></i>Technology innovation</a></li>
-                                <li><a href="demo-it-business-services-details.html"><i
-                                            class="bi bi-bar-chart-line"></i>Digital commerce</a></li>
-                                <li><a href="demo-it-business-services-details.html"><i
-                                            class="bi bi-send-check"></i>Artificial intelligence</a></li>
-                                <li><a href="demo-it-business-services-details.html"><i class="bi bi-globe2"></i>Cloud
-                                        computing</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item"><a href="demo-it-business-case-studies.html" class="nav-link">Case
-                                studies</a></li>
-                        <li class="nav-item"><a href="demo-it-business-blog.html" class="nav-link">Blog</a></li>
-                        <li class="nav-item"><a href="demo-it-business-contact.html" class="nav-link">Contact</a></li>
+                        @foreach ($navbar['name'] as $index => $nav)
+                            @php
+                                $link = $navbar['link'][$index];
+                            @endphp
+                            @if ($index !== 2)
+                                <li class="nav-item"><a href="{{ $link }}"
+                                        class="nav-link">{{ $nav }}</a></li>
+                            @else
+                                <li class="nav-item dropdown dropdown-with-icon-style02">
+                                    <a href="{{ $link }}" class="nav-link">{{ $nav }}</a>
+                                    <i class="fa-solid fa-angle-down dropdown-toggle" id="navbarDropdownMenuLink"
+                                        role="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        @foreach ($subnavbar['name'] as $index => $subnav)
+                                            @php
+                                                $detail = $subnavbar['link'][$index];
+                                            @endphp
+                                            <li><a href="{{ $link }}">{{ $subnav }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
             </div>
-            <div class="col-auto col-xxl-3 col-lg-2 text-end d-none d-sm-flex">
-                <div class="header-icon">
-                    <div class="header-button"><a href="demo-it-business-contact.html"
-                            class="btn btn-large btn-transparent-white-light btn-rounded text-transform-none border-1">Start
-                            a project<i class="fa-solid fa-arrow-right"></i></a></div>
+            <div class="d-none d-sm-flex col-auto text-end">
+                <div class="header-icon gap-4">
+                    <div class="header-button">
+                        <a href="#home-faq" id="getInTouch"
+                            class="btn btn-large btn-transparent-white-light btn-rounded text-transform-none border-1">
+                            <span>
+                                <span class="btn-double-text"
+                                data-text="{{ session('locale') == 'id' ? 'Mulai Project' : 'Start a Project' }}">{{ session('locale') == 'id' ? 'Mulai Project' : 'Start a Project' }}</span>
+                                <span><i class="fa-solid fa-arrow-right"></i></span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="header-button devider-menu"></div>
+                    <div class="header-button multi-lang">
+                        <div class="dropdown">
+                            <button class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @if (session('locale') == 'en')
+                                    <img src="https://flagcdn.com/w160/us.png" class="img-fluid w-100" alt=""
+                                        class="thumb-xxs rounded-circle">
+                                @elseif (session('locale') == 'id')
+                                    <img src="https://flagcdn.com/w160/id.png" class="img-fluid w-100" alt=""
+                                        class="thumb-xxs rounded-circle">
+                                @else
+                                    <img src="https://flagcdn.com/w160/us.png" class="img-fluid w-100" alt=""
+                                        class="thumb-xxs rounded-circle">
+                                @endif
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('locale.store', 'en') }}">
+                                        <img src="https://flagcdn.com/w40/us.png" width="28" alt=""
+                                            class="me-3 border">
+                                        <span>English</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('locale.store', 'id') }}">
+                                        <img src="https://flagcdn.com/w40/id.png" width="28" alt=""
+                                            class="me-3 border">
+                                        <span>Indonesia</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
     </nav>
     <!-- end navigation -->
