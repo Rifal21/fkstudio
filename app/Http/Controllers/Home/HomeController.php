@@ -11,6 +11,8 @@ class HomeController extends Controller
     {
         $hero = Cockpit::first('hero');
         $brand = Cockpit::first('brand');
-        return view('home.index', compact('hero', 'brand'));
+        $servicehome = Cockpit::first('serviceshome');
+        $serviceitem = Cockpit::get('servicesitem');
+        return view('home.index', compact('hero', 'brand', 'servicehome', 'serviceitem'));
     }
 }

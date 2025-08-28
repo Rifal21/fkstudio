@@ -1,86 +1,49 @@
-        <!-- start section --> 
-        <section class="py-0">
+        <!-- start section -->
+        <section class="pt-3 bg-very-light-gray sm-pt-50px position-relative">
             <div class="container">
-                @foreach($service as $index => $item)
-                <div class="row mb-7 sm-mb-50px">
-                    <div class="col-12">
-                        <span class="text-black fw-700 text-uppercase mb-10px d-block fs-15">{{ $item['title']}}</span>
-                        <div class="position-relative">
-                            <h5 class="text-black fw-700 mb-0 me-25px absolute-middle-right ls-minus-2px">{{ str_pad($index + 1, 2, '0', STR_PAD_LEFT) }}</h5>
-                            <div class="separator-line-1px w-100 d-block bg-black"></div>
+                <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 justify-content-center mb-8" data-anime='{ "el": "childs", "translateY": [30, 0], "translateX": [30, 0], "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+                    @foreach($item as $item)
+                    <!-- start services box style --> 
+                    <div class="col mb-30px"> 
+                        <div class="services-box-style-03 box-shadow-extra-large last-paragraph-no-margin border-radius-6px overflow-hidden">
+                            <div class="position-relative">
+                                <a href="{{ route('service.show', $item['slug'])}}"><img src="{{ cockpitImage($item['image']) ?? 'https://fakeimg.movexa.id/600x440/eeeeee/cccccc?text=image'}}" alt=""></a>
+                                <a href="#" class="btn btn-very-small btn-rounded btn-dark-gray text-white btn-box-shadow ps-15px pe-15px pt-5px pb-5px lh-16 position-absolute right-30px top-30px text-uppercase">{{ $item['category']}}</a>
+                            </div>
+                            <div class="bg-white">
+                                <div class="ps-65px pe-65px lg-ps-40px lg-pe-40px pt-30px pb-30px text-center progress-bar-style-01">
+                                    <a href="{{ route('service.show', $item['slug'])}}" class="d-inline-block fs-18 fw-700 text-dark-gray mb-5px">{{$item['title']}}</a>
+                                    <p>{{$item['description']}}</p> 
+                                </div> 
+                                <div class="d-flex justify-content-center border-top border-color-extra-medium-gray pt-20px pb-20px ps-50px pe-50px position-relative text-center">
+                                    <a href="{{ route('service.show', $item['slug'])}}" class="btn btn-link btn-hover-animation-switch btn-medium fw-700 text-dark-gray text-uppercase">
+                                        <span>
+                                            <span class="btn-text">Explore services</span>
+                                            <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+                                            <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+                                        </span> 
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <!-- end services box style --> 
+                    @endforeach
                 </div>
-                <div class="row mb-60px">
-                    <div class="col-lg-4 md-mb-7 last-paragraph-no-margin" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 300, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                        <p>{{ $item['description'] }}</p>
-                    </div>
-                    <div class="col-xxl-2 offset-xxl-1 col-lg-3 md-mb-7">
-                        <ul class="p-0 m-0 list-style-01" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 300, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                            @foreach(($item['jobdesk'] ?? []) as $jobdesk)
-                            <li class="border-color-black pb-10px fs-16 lh-28 fw-500 text-black">{{ $jobdesk }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <div class="col-xxl-4 offset-xxl-1 col-lg-5" data-anime='{ "effect": "slide", "color": "#ffea00", "direction":"rl", "easing": "easeOutQuad", "delay":50}'>
-                        <img src="{{cockpitImage($item['image']) ?? 'https://fakeimg.movexa.id/635x413/eeeeee/cccccc'}}" style="width: 635px; height: 413px; object-fit: cover" alt="" /> 
-                    </div>
-                </div>
-                @endforeach
-                {{-- <div class="row mb-7 sm-mb-50px">
-                    <div class="col-12">
-                        <span class="text-black fw-700 text-uppercase mb-10px d-block fs-15">Web development</span>
-                        <div class="position-relative">
-                            <h5 class="text-black fw-700 mb-0 me-25px absolute-middle-right ls-minus-2px">02</h5>
-                            <div class="separator-line-1px w-100 d-block bg-black"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-60px">
-                    <div class="col-lg-4 md-mb-7 last-paragraph-no-margin" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 300, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                        <p>We are excited for our work and how it positively impacts clients. With over 12 years of experience we have been constantly providing excellent web solutions services.</p>
-                    </div>
-                    <div class="col-xxl-2 offset-xxl-1 col-lg-3 md-mb-7">
-                        <ul class="p-0 m-0 list-style-01" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 300, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                            <li class="border-color-black pb-10px fs-16 lh-28 fw-500 text-black">Web development</li>
-                            <li class="border-color-black pt-10px pb-10px fs-16 lh-28 fw-500 text-black">Website maintenance</li>
-                            <li class="border-color-black pt-10px pb-10px fs-16 lh-28 fw-500 text-black">Mobile app development</li>
-                            <li class="border-color-black pt-10px pb-10px fs-16 lh-28 fw-500 text-black">Cloud app development</li>
-                            <li class="border-color-black pt-10px pb-10px fs-16 lh-28 fw-500 text-black">VR app development</li>
-                            <li class="border-color-black pt-10px pb-10px fs-16 lh-28 fw-500 text-black">Theme development</li>
-                        </ul>
-                    </div>
-                    <div class="col-xxl-4 offset-xxl-1 col-lg-5" data-anime='{ "effect": "slide", "color": "#ffea00", "direction":"lr", "easing": "easeOutQuad", "delay":50}'>
-                        <img src="https://fakeimg.movexa.id/635x413/eeeeee/cccccc" alt="" /> 
-                    </div>
-                </div>
-                <div class="row mb-7 sm-mb-50px">
-                    <div class="col-12">
-                        <span class="text-black fw-700 text-uppercase mb-10px d-block fs-15">eCommerce solutions</span>
-                        <div class="position-relative">
-                            <h5 class="text-black fw-700 mb-0 me-25px absolute-middle-right ls-minus-2px">03</h5>
-                            <div class="separator-line-1px w-100 d-block bg-black"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 md-mb-7 last-paragraph-no-margin" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 300, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                        <p>We are excited for our work and how it positively impacts clients. With over 12 years of experience we have been constantly providing excellent web solutions services.</p>
-                    </div>
-                    <div class="col-xxl-2 offset-xxl-1 col-lg-3 md-mb-7">
-                        <ul class="p-0 m-0 list-style-01" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 300, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                            <li class="border-color-black pb-10px fs-16 lh-28 fw-500 text-black">Custom development</li>
-                            <li class="border-color-black pt-10px pb-10px fs-16 lh-28 fw-500 text-black">E-commerce migration</li>
-                            <li class="border-color-black pt-10px pb-10px fs-16 lh-28 fw-500 text-black">Custom E-commerce</li>
-                            <li class="border-color-black pt-10px pb-10px fs-16 lh-28 fw-500 text-black">E-commerce integrations</li>
-                            <li class="border-color-black pt-10px pb-10px fs-16 lh-28 fw-500 text-black">Back-end development</li>
-                            <li class="border-color-black pt-10px pb-10px fs-16 lh-28 fw-500 text-black">E-commerce applications</li>
-                        </ul>
-                    </div>
-                    <div class="col-xxl-4 offset-xxl-1 col-lg-5" data-anime='{ "effect": "slide", "color": "#ffea00", "direction":"rl", "easing": "easeOutQuad", "delay":50}'>
-                        <img src="https://fakeimg.movexa.id/635x413/eeeeee/cccccc" alt="" /> 
-                    </div>
-                </div> --}}
+            </div> 
+            <div class="shape-image-animation p-0 w-100 bottom-minus-40px xl-bottom-0px d-none d-md-block"> 
+                <svg xmlns="http://www.w3.org/2000/svg" widht="3000" height="400" viewBox="0 180 2500 200" fill="#ffffff"> 
+                <path class="st1" d="M 0 250 C 1200 400 1200 50 3000 250 L 3000 550 L 0 550 L 0 250">
+                <animate
+                    attributeName="d"
+                    dur="5s"
+                    values="M 0 250 C 1200 400 1200 50 3000 250 L 3000 550 L 0 550 L 0 250;
+                            M 0 250 C 400 50 400 400 3000 250 L 3000 550 L 0 550 L 0 250;
+                            M 0 250 C 1200 400 1200 50 3000 250 L 3000 550 L 0 550 L 0 250"
+                    repeatCount="indefinite"
+                    />
+                </path>
+                </svg>
             </div>
         </section>
         <!-- end section --> 

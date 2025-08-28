@@ -10,7 +10,8 @@ use App\Http\Controllers\Service\ServiceController;
 
 Route::get('/', [HomeController::class, "index"])->name('home.index');
 Route::get('/about', [AgencyController::class, "index"])->name('about.index');
-Route::get('/service', [ServiceController::class, "index"])->name('service.index');
+Route::get('/services', [ServiceController::class, "index"])->name('service.index');
+Route::get('/services/{slug}', [ServiceController::class, "show"])->name('service.show');
 Route::get('/portfolio', [PortfolioController::class, "index"])->name('portfolio.index');
 Route::get('/portfolio/{slug}', [PortfolioController::class, "show"])->name('portfolio.show');
 Route::get('/contact', [ContactController::class, "index"])->name('contact.index');
