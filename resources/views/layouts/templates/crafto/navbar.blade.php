@@ -28,11 +28,11 @@
                                 $link = $navbar['link'][$index];
                             @endphp
                             @if ($index !== 2)
-                                <li class="nav-item"><a href="{{ $link }}"
+                                <li class="nav-item"><a href="{{ route("$link") }}"
                                         class="nav-link">{{ $nav }}</a></li>
                             @else
                                 <li class="nav-item dropdown dropdown-with-icon-style02">
-                                    <a href="{{ $link }}" class="nav-link">{{ $nav }}</a>
+                                    <a href="{{ route("$link") }}" class="nav-link">{{ $nav }}</a>
                                     <i class="fa-solid fa-angle-down dropdown-toggle" id="navbarDropdownMenuLink"
                                         role="button" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -40,7 +40,7 @@
                                             @php
                                                 $detail = $subnavbar['link'][$index];
                                             @endphp
-                                            <li><a href="{{ $link }}">{{ $subnav }}</a></li>
+                                            <li><a href="{{ route('service.category', $detail)}}">{{ $subnav }}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
