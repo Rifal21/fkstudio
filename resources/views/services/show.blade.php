@@ -59,7 +59,7 @@
                            <h3 class="text-dark-gray fw-700 ls-minus-1px">{{ $item['title'] }}</h3>
                            <p class="w-95 md-w-100">{!! $item['long_desc'] !!}</p>
                            <div class="pt-20px pb-20px pe-30px xs-p-15px mb-15px icon-with-text-style-08 w-90 lg-w-100">
-                               <a href="#bundle" target="blank"
+                               <a href="#bundle"
                                    class="btn btn-extra-large btn-switch-text btn-gradient-purple-pink btn-rounded me-10px ls-0px mt-15px">
                                    <span>
                                        <span class="btn-double-text"

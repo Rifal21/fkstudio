@@ -28,4 +28,14 @@ class ServiceController extends Controller
         // dd($item);
         return view('services.show', compact('service', 'item', 'serviceitem'));
     }
+
+    public function category($category)
+    {
+        $service = Cockpit::first('servicepage');
+        $item = Cockpit::get('servicesitem', ['filter' => ['tag' => $category]]);
+        if (!$item) {
+            abort(404);
+        }
+        return view('services.index', compact('service', 'item', 'category'));
+    }
 }
