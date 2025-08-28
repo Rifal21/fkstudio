@@ -92,6 +92,7 @@
                                 </div>
                             </div>
                         </div>
+                        <h4 class="text-center mb-50px fw-bold text-dark-gray" data-anime='{ "el": "childs", "scale": [0.8,1], "opacity": [0,1], "duration": 600, "delay":0, "staggervalue": 300, "easing": "easeOutQuad" }'>{{ session('locale') == 'id' ? 'Klien Kami' : 'Our Clients' }}</h4>
                         <div class="row row-cols-1 row-cols-lg-5 row-cols-md-3 row-cols-sm-2 clients-style-06 justify-content-center ps-3 pe-3 xs-mt-40px"
                             data-anime='{ "el": "childs", "scale": [0.8,1], "opacity": [0,1], "duration": 600, "delay":0, "staggervalue": 300, "easing": "easeOutQuad" }'>
                             @foreach ($brand['client_logo'] as $index => $item)
