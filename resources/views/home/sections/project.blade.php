@@ -1,295 +1,149 @@
         <!-- start section -->
-        <section class="pb-0">
+        <section class="position-relative"> 
             <div class="container">
-                <div class="row">
-                    @forelse($project as $index => $item)
-                        @php
-                            $imageUrl = !empty($item['image'])
-                                ? cockpitImage($item['image'])
-                                : 'https://fakeimg.movexa.id/750x635/eeeeee/cccccc?text=project';
-                        @endphp
-                        @if ($index === 0)
-                            <div class="col-xl-4 col-lg-5 filter-content">
-                                <ul
-                                    class="portfolio-simple portfolio-wrapper grid-loading grid grid-4col xxl-grid-4col xl-grid-4col lg-grid-4col md-grid-2col sm-grid-2col xs-grid-1col text-center">
-                                    <li class="grid-sizer"></li>
-                                    <!-- start portfolio item -->
-                                    <li class="grid-item grid-item-single transition-inner-all">
-                                        <div class="portfolio-box"
-                                            data-bottom-top="transform: translate3d(0px, 50px, 0px);"
-                                            data-top-bottom="transform: translate3d(0px, -50px, 0px);">
-                                            <div class="portfolio-image bg-base-color">
-                                                <a href="{{$item['link'] ?? '#'}}">
-                                                    <img src="{{ $imageUrl }}"
-                                                        alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="portfolio-caption pt-35px pb-35px sm-pt-20px sm-pb-20px">
-                                                <a href="{{$item['link'] ?? '#'}}"
-                                                    class="text-black text-black-hover fw-600 fs-24 alt-font font-style-italic">{{ $item['title'] }}</a>
-                                                <span
-                                                    class="d-inline-block align-middle w-10px separator-line-1px bg-light-gray ms-5px me-5px"></span>
-                                                <div class="d-inline-block">{{ $item['sort_desc'] }}</div>
-                                            </div>
+                <div class="row align-items-center mb-4" data-anime='{ "el": "childs", "translateY": [30, 0], "opacity": [0,1], "duration": 600, "delay":0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+                    <div class="col-xl-5 lg-mb-30px text-center text-xl-start">
+                        <h3 class="text-dark-gray fw-700 mb-0 ls-minus-2px">Recent case studies</h3>
+                    </div>
+                    <div class="col-xl-7 tab-style-04 text-center text-xl-end">
+                        <!-- filter navigation -->
+                        <ul class="portfolio-filter nav nav-tabs justify-content-center justify-content-xl-end border-0 fw-500">
+                            <li class="nav active"><a data-filter="*" href="#">All</a></li>
+                            <li class="nav"><a data-filter=".selected" href="#">Selected</a></li>
+                            <li class="nav"><a data-filter=".digital" href="#">Digital</a></li>
+                            <li class="nav"><a data-filter=".branding" href="#">Branding</a></li>
+                            <li class="nav"><a data-filter=".web" href="#">Web</a></li>
+                        </ul>
+                        <!-- end filter navigation --> 
+                    </div>
+                </div> 
+                <div class="row" data-anime='{  "opacity": [0,1], "duration": 600, "delay":0, "staggervalue": 300, "easing": "easeOutQuad" }'>
+                    <div class="col-12 filter-content p-md-0">
+                        <ul class="portfolio-modern portfolio-wrapper grid-loading grid grid-3col xxl-grid-3col xl-grid-3col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-extra-large">
+                            <li class="grid-sizer"></li>
+                            <!-- start portfolio item -->
+                            <li class="grid-item selected digital transition-inner-all">
+                                <a href="demo-it-business-single-project-gallery.html">
+                                    <div class="portfolio-box">
+                                        <div class="portfolio-image border-radius-4px">
+                                            <img src="https://fakeimg.movexa.id/700x820/eeeeee/cccccc?text=image" alt="" />
                                         </div>
-                                    </li>
-                                    <!-- end portfolio item -->
-                                </ul>
-                            </div>
-                        @endif
-                        @if ($index === 1)
-                            <div class="col-xl-7 col-lg-7 filter-content offset-xl-1">
-                                <ul
-                                    class="portfolio-simple portfolio-wrapper grid-loading grid grid-4col xxl-grid-4col xl-grid-4col lg-grid-4col md-grid-2col sm-grid-2col xs-grid-1col text-center">
-                                    <li class="grid-sizer"></li>
-                                    <!-- start portfolio item -->
-                                    <li class="grid-item grid-item-single transition-inner-all">
-                                        <div class="portfolio-box"
-                                            data-bottom-top="transform: translate3d(0px, 100px, 0px)"
-                                            data-top-bottom="transform: translate3d(0px, 180px, 0px);">
-                                            <div class="portfolio-image bg-base-color">
-                                                <a href="{{$item['link'] ?? '#'}}">
-                                                    <img src="{{ $imageUrl }}"
-                                                        alt="" />
-                                                </a>
+                                        <div class="portfolio-hover box-shadow-extra-large">
+                                            <div class="bg-white d-flex align-items-center align-self-end text-start border-radius-4px ps-30px pe-30px pt-20px pb-20px lg-p-20px w-100">
+                                                <div class="me-auto">
+                                                    <div class="fs-12 fw-500 text-medium-gray text-uppercase lh-24">Branding</div>
+                                                    <div class="fw-700 text-dark-gray text-uppercase lh-initial">Tailoring</div>
+                                                </div>
+                                                <div class="ms-auto"><i class="feather icon-feather-plus icon-extra-medium text-dark-gray lh-36"></i></div> 
                                             </div>
-                                            <div class="portfolio-caption pt-35px pb-35px sm-pt-20px sm-pb-20px">
-                                                <a href="{{$item['link'] ?? '#'}}"
-                                                    class="text-black text-black-hover fw-600 fs-24 alt-font font-style-italic">{{ $item['title'] }}</a>
-                                                <span
-                                                    class="d-inline-block align-middle w-10px separator-line-1px bg-light-gray ms-5px me-5px"></span>
-                                                <div class="d-inline-block">{{ $item['sort_desc'] }}</div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!-- end portfolio item -->
-                                </ul>
-                            </div>
-                        @endif
-                        @if ($index === 2)
-                            <div class="col-12 filter-content mt-20 mb-5 lg-mt-0 lg-mb-0">
-                                <ul
-                                    class="portfolio-simple portfolio-wrapper grid-loading grid grid-4col xxl-grid-4col xl-grid-4col lg-grid-4col md-grid-2col sm-grid-2col xs-grid-1col text-center">
-                                    <li class="grid-sizer"></li>
-                                    <!-- start portfolio item -->
-                                    <li class="grid-item grid-item-single transition-inner-all">
-                                        <div class="portfolio-box"
-                                            data-bottom-top="transform: translate3d(0px, -80px, 0px);"
-                                            data-top-bottom="transform: translate3d(0px, 80px, 0px);">
-                                            <div class="portfolio-image bg-base-color">
-                                                <a href="{{$item['link'] ?? '#'}}">
-                                                    <img src="{{ $imageUrl }}"
-                                                        alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="portfolio-caption pt-35px pb-35px sm-pt-20px sm-pb-20px">
-                                                <a href="{{$item['link'] ?? '#'}}"
-                                                    class="text-black text-black-hover fw-600 fs-24 alt-font font-style-italic">{{ $item['title'] }}</a>
-                                                <span
-                                                    class="d-inline-block align-middle w-10px separator-line-1px bg-light-gray ms-5px me-5px"></span>
-                                                <div class="d-inline-block">{{ $item['sort_desc'] }}</div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!-- end portfolio item -->
-                                </ul>
-                            </div>
-                        @endif
-                        @if ($index === 3)
-                            <div class="col-xl-7 col-lg-7 filter-content xl-mt-5 lg-mt-0">
-                                <ul
-                                    class="portfolio-simple portfolio-wrapper grid-loading grid grid-4col xxl-grid-4col xl-grid-4col lg-grid-4col md-grid-2col sm-grid-2col xs-grid-1col text-center">
-                                    <li class="grid-sizer"></li>
-                                    <!-- start portfolio item -->
-                                    <li class="grid-item grid-item-single transition-inner-all">
-                                        <div class="portfolio-box"
-                                            data-bottom-top="transform: translate3d(0px, 50px, 0px);"
-                                            data-top-bottom="transform: translate3d(0px, -50px, 0px);">
-                                            <div class="portfolio-image bg-base-color">
-                                                <a href="{{$item['link'] ?? '#'}}">
-                                                    <img src="{{ $imageUrl }}"
-                                                        alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="portfolio-caption pt-35px pb-35px sm-pt-20px sm-pb-20px">
-                                                <a href="{{$item['link'] ?? '#'}}"
-                                                    class="text-black text-black-hover fw-600 fs-24 alt-font font-style-italic">{{ $item['title'] }}</a>
-                                                <span
-                                                    class="d-inline-block align-middle w-10px separator-line-1px bg-light-gray ms-5px me-5px"></span>
-                                                <div class="d-inline-block">{{ $item['sort_desc'] }}</div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!-- end portfolio item -->
-                                </ul>
-                            </div>
-                        @endif
-                        @if ($index === 4)
-                            <div class="col-xl-4 col-lg-5 filter-content offset-xl-1 xl-mt-3 lg-mt-0">
-                                <ul
-                                    class="portfolio-simple portfolio-wrapper grid-loading grid grid-4col xxl-grid-4col xl-grid-4col lg-grid-4col md-grid-2col sm-grid-2col xs-grid-1col text-center">
-                                    <li class="grid-sizer"></li>
-                                    <!-- start portfolio item -->
-                                    <li class="grid-item grid-item-single transition-inner-all">
-                                        <div class="portfolio-box"
-                                            data-bottom-top="transform: translate3d(0px, -50px, 0px);"
-                                            data-top-bottom="transform: translate3d(0px, 50px, 0px);">
-                                            <div class="portfolio-image bg-base-color">
-                                                <a href="{{$item['link'] ?? '#'}}">
-                                                    <img src="{{ $imageUrl }}"
-                                                        alt="" />
-                                                </a>
-                                            </div>
-                                            <div class="portfolio-caption pt-35px pb-35px sm-pt-20px sm-pb-20px">
-                                                <a href="{{$item['link'] ?? '#'}}"
-                                                    class="text-black text-black-hover fw-600 fs-24 alt-font font-style-italic">{{ $item['title'] }}</a>
-                                                <span
-                                                    class="d-inline-block align-middle w-10px separator-line-1px bg-light-gray ms-5px me-5px"></span>
-                                                <div class="d-inline-block">{{ $item['sort_desc'] }}</div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <!-- end portfolio item -->
-                                </ul>
-                            </div>
-                        @endif
-                    @empty
-                        <div class="col-xl-4 col-lg-5 filter-content">
-                            <ul
-                                class="portfolio-simple portfolio-wrapper grid-loading grid grid-4col xxl-grid-4col xl-grid-4col lg-grid-4col md-grid-2col sm-grid-2col xs-grid-1col text-center">
-                                <li class="grid-sizer"></li>
-                                <!-- start portfolio item -->
-                                <li class="grid-item grid-item-single transition-inner-all">
-                                    <div class="portfolio-box" data-bottom-top="transform: translate3d(0px, 50px, 0px);"
-                                        data-top-bottom="transform: translate3d(0px, -50px, 0px);">
-                                        <div class="portfolio-image bg-base-color">
-                                            <a href="demo-scattered-portfolio-single-project-creative.html">
-                                                <img src="https://fakeimg.movexa.id/750x635/eeeeee/cccccc?text=project"
-                                                    alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="portfolio-caption pt-35px pb-35px sm-pt-20px sm-pb-20px">
-                                            <a href="demo-scattered-portfolio-single-project-creative.html"
-                                                class="text-black text-black-hover fw-600 fs-24 alt-font font-style-italic">Tailoring</a>
-                                            <span
-                                                class="d-inline-block align-middle w-10px separator-line-1px bg-light-gray ms-5px me-5px"></span>
-                                            <div class="d-inline-block">Branding</div>
                                         </div>
                                     </div>
-                                </li>
-                                <!-- end portfolio item -->
-                            </ul>
-                        </div>
-                        <div class="col-xl-7 col-lg-7 filter-content offset-xl-1">
-                            <ul
-                                class="portfolio-simple portfolio-wrapper grid-loading grid grid-4col xxl-grid-4col xl-grid-4col lg-grid-4col md-grid-2col sm-grid-2col xs-grid-1col text-center">
-                                <li class="grid-sizer"></li>
-                                <!-- start portfolio item -->
-                                <li class="grid-item grid-item-single transition-inner-all">
-                                    <div class="portfolio-box"
-                                        data-bottom-top="transform: translate3d(0px, 100px, 0px)"
-                                        data-top-bottom="transform: translate3d(0px, 180px, 0px);">
-                                        <div class="portfolio-image bg-base-color">
-                                            <a href="demo-scattered-portfolio-single-project-creative.html">
-                                                <img src="https://fakeimg.movexa.id/750x635/eeeeee/cccccc?text=project"
-                                                    alt="" />
-                                            </a>
+                                </a>
+                            </li>
+                            <!-- end portfolio item -->
+                            <!-- start portfolio item -->
+                            <li class="grid-item web branding transition-inner-all">
+                                <a href="demo-it-business-single-project-gallery.html">
+                                    <div class="portfolio-box">
+                                        <div class="portfolio-image border-radius-6px">
+                                            <img src="https://fakeimg.movexa.id/700x820/eeeeee/cccccc?text=image" alt="" />
                                         </div>
-                                        <div class="portfolio-caption pt-35px pb-35px sm-pt-20px sm-pb-20px">
-                                            <a href="demo-scattered-portfolio-single-project-creative.html"
-                                                class="text-black text-black-hover fw-600 fs-24 alt-font font-style-italic">Designblast</a>
-                                            <span
-                                                class="d-inline-block align-middle w-10px separator-line-1px bg-light-gray ms-5px me-5px"></span>
-                                            <div class="d-inline-block">Photography</div>
+                                        <div class="portfolio-hover box-shadow-extra-large">
+                                            <div class="bg-white d-flex align-items-center align-self-end text-start border-radius-4px ps-30px pe-30px pt-20px pb-20px lg-p-20px w-100">
+                                                <div class="me-auto">
+                                                    <div class="fs-12 fw-500 text-medium-gray text-uppercase lh-24">Design</div>
+                                                    <div class="fw-700 text-dark-gray text-uppercase lh-initial">Spanio</div>
+                                                </div>
+                                                <div class="ms-auto"><i class="feather icon-feather-plus icon-extra-medium text-dark-gray lh-36"></i></div> 
+                                            </div>
                                         </div>
                                     </div>
-                                </li>
-                                <!-- end portfolio item -->
-                            </ul>
-                        </div>
-                        <div class="col-12 filter-content mt-20 mb-5 lg-mt-0 lg-mb-0">
-                            <ul
-                                class="portfolio-simple portfolio-wrapper grid-loading grid grid-4col xxl-grid-4col xl-grid-4col lg-grid-4col md-grid-2col sm-grid-2col xs-grid-1col text-center">
-                                <li class="grid-sizer"></li>
-                                <!-- start portfolio item -->
-                                <li class="grid-item grid-item-single transition-inner-all">
-                                    <div class="portfolio-box"
-                                        data-bottom-top="transform: translate3d(0px, -80px, 0px);"
-                                        data-top-bottom="transform: translate3d(0px, 80px, 0px);">
-                                        <div class="portfolio-image bg-base-color">
-                                            <a href="demo-scattered-portfolio-single-project-creative.html">
-                                                <img src="https://fakeimg.movexa.id/750x635/eeeeee/cccccc?text=project"
-                                                    alt="" />
-                                            </a>
+                                </a>
+                            </li>
+                            <!-- end portfolio item -->
+                            <!-- start portfolio item -->
+                            <li class="grid-item web branding transition-inner-all">
+                                <a href="demo-it-business-single-project-gallery.html">
+                                    <div class="portfolio-box">
+                                        <div class="portfolio-image border-radius-6px">
+                                            <img src="https://fakeimg.movexa.id/700x820/eeeeee/cccccc?text=image" alt="" />
                                         </div>
-                                        <div class="portfolio-caption pt-35px pb-35px sm-pt-20px sm-pb-20px">
-                                            <a href="demo-scattered-portfolio-single-project-creative.html"
-                                                class="text-black text-black-hover fw-600 fs-24 alt-font font-style-italic">Outward</a>
-                                            <span
-                                                class="d-inline-block align-middle w-10px separator-line-1px bg-light-gray ms-5px me-5px"></span>
-                                            <div class="d-inline-block">Identity</div>
+                                        <div class="portfolio-hover box-shadow-extra-large">
+                                            <div class="bg-white d-flex align-items-center align-self-end text-start border-radius-4px ps-30px pe-30px pt-20px pb-20px lg-p-20px w-100">
+                                                <div class="me-auto">
+                                                    <div class="fs-12 fw-500 text-medium-gray text-uppercase lh-24">Branding</div>
+                                                    <div class="fw-700 text-dark-gray text-uppercase lh-initial">Herbal</div>
+                                                </div>
+                                                <div class="ms-auto"><i class="feather icon-feather-plus icon-extra-medium text-dark-gray lh-36"></i></div> 
+                                            </div>
                                         </div>
                                     </div>
-                                </li>
-                                <!-- end portfolio item -->
-                            </ul>
-                        </div>
-                        <div class="col-xl-7 col-lg-7 filter-content xl-mt-5 lg-mt-0">
-                            <ul
-                                class="portfolio-simple portfolio-wrapper grid-loading grid grid-4col xxl-grid-4col xl-grid-4col lg-grid-4col md-grid-2col sm-grid-2col xs-grid-1col text-center">
-                                <li class="grid-sizer"></li>
-                                <!-- start portfolio item -->
-                                <li class="grid-item grid-item-single transition-inner-all">
-                                    <div class="portfolio-box"
-                                        data-bottom-top="transform: translate3d(0px, 50px, 0px);"
-                                        data-top-bottom="transform: translate3d(0px, -50px, 0px);">
-                                        <div class="portfolio-image bg-base-color">
-                                            <a href="demo-scattered-portfolio-single-project-creative.html">
-                                                <img src="https://fakeimg.movexa.id/750x635/eeeeee/cccccc?text=project"
-                                                    alt="" />
-                                            </a>
+                                </a>
+                            </li>
+                            <!-- end portfolio item -->
+                            <!-- start portfolio item -->
+                            <li class="grid-item selected digital transition-inner-all">
+                                <a href="demo-it-business-single-project-gallery.html">
+                                    <div class="portfolio-box">
+                                        <div class="portfolio-image border-radius-6px">
+                                            <img src="https://fakeimg.movexa.id/700x820/eeeeee/cccccc?text=image" alt="" />
                                         </div>
-                                        <div class="portfolio-caption pt-35px pb-35px sm-pt-20px sm-pb-20px">
-                                            <a href="demo-scattered-portfolio-single-project-creative.html"
-                                                class="text-black text-black-hover fw-600 fs-24 alt-font font-style-italic">Violator</a>
-                                            <span
-                                                class="d-inline-block align-middle w-10px separator-line-1px bg-light-gray ms-5px me-5px"></span>
-                                            <div class="d-inline-block">Marketing</div>
+                                        <div class="portfolio-hover box-shadow-extra-large">
+                                            <div class="bg-white d-flex align-items-center align-self-end text-start border-radius-4px ps-30px pe-30px pt-20px pb-20px lg-p-20px w-100">
+                                                <div class="me-auto">
+                                                    <div class="fs-12 fw-500 text-medium-gray text-uppercase lh-24">Brochure</div>
+                                                    <div class="fw-700 text-dark-gray text-uppercase lh-initial">Cropo</div>
+                                                </div>
+                                                <div class="ms-auto"><i class="feather icon-feather-plus icon-extra-medium text-dark-gray lh-36"></i></div> 
+                                            </div>
                                         </div>
                                     </div>
-                                </li>
-                                <!-- end portfolio item -->
-                            </ul>
-                        </div>
-                        <div class="col-xl-4 col-lg-5 filter-content offset-xl-1 xl-mt-3 lg-mt-0">
-                            <ul
-                                class="portfolio-simple portfolio-wrapper grid-loading grid grid-4col xxl-grid-4col xl-grid-4col lg-grid-4col md-grid-2col sm-grid-2col xs-grid-1col text-center">
-                                <li class="grid-sizer"></li>
-                                <!-- start portfolio item -->
-                                <li class="grid-item grid-item-single transition-inner-all">
-                                    <div class="portfolio-box"
-                                        data-bottom-top="transform: translate3d(0px, -50px, 0px);"
-                                        data-top-bottom="transform: translate3d(0px, 50px, 0px);">
-                                        <div class="portfolio-image bg-base-color">
-                                            <a href="demo-scattered-portfolio-single-project-creative.html">
-                                                <img src="https://fakeimg.movexa.id/750x635/eeeeee/cccccc?text=project"
-                                                    alt="" />
-                                            </a>
+                                </a>
+                            </li>
+                            <!-- end portfolio item -->
+                            <!-- start portfolio item -->
+                            <li class="grid-item selected branding transition-inner-all">
+                                <a href="demo-it-business-single-project-gallery.html">
+                                    <div class="portfolio-box">
+                                        <div class="portfolio-image border-radius-6px">
+                                            <img src="https://fakeimg.movexa.id/700x820/eeeeee/cccccc?text=image" alt="" />
                                         </div>
-                                        <div class="portfolio-caption pt-35px pb-35px sm-pt-20px sm-pb-20px">
-                                            <a href="demo-scattered-portfolio-single-project-creative.html"
-                                                class="text-black text-black-hover fw-600 fs-24 alt-font font-style-italic">Potato</a>
-                                            <span
-                                                class="d-inline-block align-middle w-10px separator-line-1px bg-light-gray ms-5px me-5px"></span>
-                                            <div class="d-inline-block">Branding</div>
+                                        <div class="portfolio-hover box-shadow-extra-large">
+                                            <div class="bg-white d-flex align-items-center align-self-end text-start border-radius-4px ps-30px pe-30px pt-20px pb-20px lg-p-20px w-100">
+                                                <div class="me-auto">
+                                                    <div class="fs-12 fw-500 text-medium-gray text-uppercase lh-24">Design</div>
+                                                    <div class="fw-700 text-dark-gray text-uppercase lh-initial">Violator</div>
+                                                </div>
+                                                <div class="ms-auto"><i class="feather icon-feather-plus icon-extra-medium text-dark-gray lh-36"></i></div> 
+                                            </div>
                                         </div>
                                     </div>
-                                </li>
-                                <!-- end portfolio item -->
-                            </ul>
-                        </div>
-                    @endforelse
-                </div>
+                                </a>
+                            </li>
+                            <!-- end portfolio item -->
+                            <!-- start portfolio item -->
+                            <li class="grid-item digital web transition-inner-all">
+                                <a href="demo-it-business-single-project-gallery.html">
+                                    <div class="portfolio-box">
+                                        <div class="portfolio-image border-radius-6px">
+                                            <img src="https://fakeimg.movexa.id/700x820/eeeeee/cccccc?text=image" alt="" />
+                                        </div>
+                                        <div class="portfolio-hover box-shadow-extra-large">
+                                            <div class="bg-white d-flex align-items-center align-self-end text-start border-radius-4px ps-30px pe-30px pt-20px pb-20px lg-p-20px w-100">
+                                                <div class="me-auto">
+                                                    <div class="fs-12 fw-500 text-medium-gray text-uppercase lh-24">Digital</div>
+                                                    <div class="fw-700 text-dark-gray text-uppercase lh-initial">Pixflow</div>
+                                                </div>
+                                                <div class="ms-auto"><i class="feather icon-feather-plus icon-extra-medium text-dark-gray lh-36"></i></div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <!-- end portfolio item --> 
+                        </ul>
+                    </div>
+                </div> 
             </div>
         </section>
         <!-- end section -->

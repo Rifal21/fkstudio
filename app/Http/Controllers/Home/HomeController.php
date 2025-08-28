@@ -10,6 +10,7 @@ class HomeController extends Controller
     public function index()
     {
         $hero = Cockpit::first('hero');
-        return view('home.index', compact('hero'));
+        $brand = Cockpit::first('brand');
+        return view('home.index', compact('hero', 'brand'));
     }
 }
