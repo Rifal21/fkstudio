@@ -4,8 +4,8 @@
                 <div class="row justify-content-center pt-5 sm-pt-40px">
                     <!-- start footer column -->
                     <div class="col-6 col-xl-3 col-lg-12 col-sm-6 last-paragraph-no-margin text-xl-start text-lg-center order-sm-1 lg-mb-50px sm-mb-30px">
-                        <a href="demo-it-business.html" class="footer-logo mb-15px d-inline-block"> 
-                            <img src="images/demo-it-business-logo-black.png" data-at2x="images/demo-it-business-logo-black@2x.png" alt="">
+                        <a href="/" class="footer-logo mb-15px d-inline-block"> 
+                            <img src="{{ asset('/assets/images/fkstudio.png') }}" data-at2x="{{ asset('/assets/images/fkstudio.png') }}" alt="">
                         </a>
                         <p class="lh-28 w-90 xl-w-100 mx-lg-auto mx-xl-0">Gearing your company through an innovative strategy.</p>
                         <div class="elements-social social-icon-style-02 mt-15px">
@@ -71,7 +71,7 @@
                     </div>
                     <!-- end divider -->
                     <!-- start copyright -->
-                    <div class="col-lg-5 pt-20px pb-20px md-pt-0 order-2 order-lg-1 text-center text-lg-start last-paragraph-no-margin fs-14"><p>&copy; 2024 Crafto is Proudly Powered by <a href="https://www.themezaa.com/" target="_blank" class="text-dark-gray fw-600 text-decoration-line-bottom">ThemeZaa</a></p></div>
+                    <div class="col-lg-5 pt-20px pb-20px md-pt-0 order-2 order-lg-1 text-center text-lg-start last-paragraph-no-margin fs-14"><p>&copy; {{ date('Y') }} Copyright <a href="https://fkstudio.my.id/" target="_blank" class="text-dark-gray fw-600 text-decoration-line-bottom">Fkstudio</a></p></div>
                     <!-- end copyright -->
                     <!-- start footer menu -->
                     <div class="col-lg-7 pt-20px pb-20px md-pt-25px md-pb-5px order-1 order-lg-2 text-center text-lg-end fs-14">
