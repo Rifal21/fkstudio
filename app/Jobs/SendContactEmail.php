@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Mail;
 
 class SendContactEmail implements ShouldQueue
@@ -34,7 +35,7 @@ class SendContactEmail implements ShouldQueue
             'subject' => $this->data['subject'] ?? '',
             'bodyMessage' => $this->data['message'], // ✅ gunakan nama berbeda
         ], function ($mail) {
-            $mail->to('smactactic@gmail.com')
+            $mail->to(Env::get('MAIL_FROM_ADDRESS'), Env::get('MAIL_FROM_NAME'))
                 ->subject('Pesan Baru dari Website')
                 ->replyTo($this->data['email'], $this->data['name']);
         });

@@ -13,9 +13,9 @@ class ContactController extends Controller
 {
     public function index()
     {
-        // $contact = Cockpit::first('contactme');
+        $contact = Cockpit::first('contact');
         // $form = Cockpit::first('contactform');
-        return view('contact.index');
+        return view('contact.index', compact('contact'));
     }
 
     public function send(Request $request)
