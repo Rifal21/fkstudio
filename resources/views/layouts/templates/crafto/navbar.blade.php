@@ -52,7 +52,7 @@
             <div class="d-none d-sm-flex col-auto text-end">
                 <div class="header-icon gap-4">
                     <div class="header-button">
-                        <a href="#home-faq" id="getInTouch"
+                        <a href="#service" id="getInTouch"
                             class="btn btn-large btn-transparent-white-light btn-rounded text-transform-none border-1">
                             <span>
                                 <span class="btn-double-text"
