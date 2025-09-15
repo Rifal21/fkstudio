@@ -10,6 +10,7 @@ class AgencyController extends Controller
 {
     public function index()
     {
-        return view('agency.index');
+        $about = Cockpit::first('aboutpage');
+        return view('agency.index', compact('about'));
     }
 }
