@@ -11,6 +11,7 @@ class AgencyController extends Controller
     public function index()
     {
         $about = Cockpit::first('aboutpage');
-        return view('agency.index', compact('about'));
+        $brand = Cockpit::first('brand');
+        return view('agency.index', compact('about', 'brand'));
     }
 }

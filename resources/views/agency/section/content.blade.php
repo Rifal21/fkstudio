@@ -146,31 +146,15 @@
                     </div>
                 </div>
                 <div class="row row-cols-1 row-cols-lg-5 row-cols-md-3 row-cols-sm-2 clients-style-06 justify-content-center mb-8 sm-mb-0" data-anime='{ "opacity": [0,1], "duration": 600, "delay": 0, "staggervalue": 300, "easing": "easeOutQuad" }'>
-                    <!-- start client item -->
-                    <div class="col client-box text-center md-mb-40px">
-                        <a href="#"><img src="images/logo-walmart-dark-blue.svg" class="h-45px" alt=""></a>
-                    </div>
-                    <!-- end client item -->
-                    <!-- start client item -->
-                    <div class="col client-box text-center md-mb-40px">
-                        <a href="#"><img src="images/logo-netflix-dark-blue.svg" class="h-45px" alt=""></a>
-                    </div>
-                    <!-- end client item -->
-                    <!-- start client item -->
-                    <div class="col client-box text-center md-mb-40px">
-                        <a href="#"><img src="images/logo-invision-dark-blue.svg" class="h-45px" alt=""></a>
-                    </div>
-                    <!-- end client item -->
-                    <!-- start client item -->
-                    <div class="col client-box text-center sm-mb-40px">
-                        <a href="#"><img src="images/logo-yahoo-dark-blue.svg" class="h-45px" alt=""></a>
-                    </div> 
-                    <!-- end client item -->
-                    <!-- start client item -->
-                    <div class="col client-box text-center">
-                        <a href="#"><img src="images/logo-amazon-dark-blue.svg" class="h-45px" alt=""></a>
-                    </div> 
-                    <!-- end client item -->
+                    @foreach ($brand['client_logo'] as $index => $item)
+                                <!-- start client item -->
+                                <div class="col client-box text-center md-mb-40px">
+                                    <img
+                                            src="{{ cockpitImage($item) ?? 'https://fakeimg.movexa.id/100x100/eeeeee/cccccc?text=logo' }}"
+                                            alt="" style="max-width: 100px; height: 100px;">
+                                </div>
+                                <!-- end client item -->
+                            @endforeach
                 </div>
             </div>
             <div class="shape-image-animation p-0 w-100 bottom-minus-40px xl-bottom-0px d-none d-md-block"> 
